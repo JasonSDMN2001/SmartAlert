@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "13848550227",
+    "project_id": "smartalert-137a7",
+    "storage_bucket": "smartalert-137a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13848550227:android:c2779a3a5e323bf51d5fa6",
+        "android_client_info": {
+          "package_name": "com.unipi.boidanis.smartalert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "13848550227-u44oeokatktpgbkk4n2i2mgah2efqd5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKbWzNhw0jFKiZkOPI1xZaWzpSF3WwL98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "13848550227-u44oeokatktpgbkk4n2i2mgah2efqd5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

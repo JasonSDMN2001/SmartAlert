@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="role_array">
+        <item>Employee</item>
+        <item>Alerting User</item>
+        <item>Alerted User</item>
+
+    </string-array>
+    <string-array name="danger_array">
+        <item>Πυρκαγια</item>
+        <item>Πλημμυρα</item>
+        <item>Σεισμος</item>
+        <item>Ανεμοστροβιλος</item>
+        <item>Καπνος/Σταχτη</item>
+    </string-array>
+</resources>

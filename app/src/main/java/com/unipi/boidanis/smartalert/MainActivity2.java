@@ -137,7 +137,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         {
             DatabaseReference ref2 = database.getReference().child("Alerts");
             key = ref2.push().getKey();
-            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(), gps.getLatitude(),gps.getLongitude(), currentTime,null,false);
+            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,null,false);
 
             ref2.child(key).setValue(dangerData);
         }else{

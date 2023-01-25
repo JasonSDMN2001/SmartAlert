@@ -37,23 +37,23 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        /*locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        database = FirebaseDatabase.getInstance();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);*/
+        /*database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         Intent serviceIntent = new Intent(this,MyService.class);
         serviceIntent.putExtra("User", user);
-        startService(serviceIntent);
+        startService(serviceIntent);*/
     }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        gps_long1=location.getLongitude();
+        /*gps_long1=location.getLongitude();
         gps_lat1=location.getLatitude();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref2 = database.getReference().child("Alerts");
@@ -87,18 +87,20 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
 
             }
         });
-        locationManager.removeUpdates(this);
+        locationManager.removeUpdates(this);*/
     }
     void showMessage(String title, String message){
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
     public void RegisterForAlerts(View view){
-        Intent serviceIntent = new Intent(this,MyService2.class);
-        serviceIntent.putExtra("User", user);
+        startService(new Intent(this,MyService.class));
+        showMessage("You will now","receive updates");
+        //Intent serviceIntent = new Intent(this,MyService2.class);
+        //serviceIntent.putExtra("User", user);
         /*serviceIntent.putExtra("gps_long1",gps_long1 );
         serviceIntent.putExtra("gps_lat1",gps_lat1 );
         serviceIntent.putExtra("gps_long2",gps_long2 );
         serviceIntent.putExtra("gps_lat2",gps_lat2 );*/
-        startService(serviceIntent);
+        //startService(serviceIntent);
     }
 }

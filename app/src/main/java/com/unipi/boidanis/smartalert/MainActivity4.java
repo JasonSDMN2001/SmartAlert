@@ -7,8 +7,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -93,7 +95,13 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
     public void RegisterForAlerts(View view){
-        startService(new Intent(this,MyService.class));
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this,MyService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(),1234,intent,
+                PendingIntent.FLAG_IMMUTABLE);
+        //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()
+                //+(5000),pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),5000,pendingIntent);
         showMessage("You will now","receive updates");
         //Intent serviceIntent = new Intent(this,MyService2.class);
         //serviceIntent.putExtra("User", user);

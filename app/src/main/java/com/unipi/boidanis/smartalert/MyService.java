@@ -44,7 +44,8 @@ public class MyService extends Service implements LocationListener {
     }
 
     @Override
-    public void onCreate() {
+    public int onStartCommand(Intent intent, int flags, int startId) {
+         super.onStartCommand(intent, flags, startId);
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -66,6 +67,13 @@ public class MyService extends Service implements LocationListener {
                 .setContentText("Running")
                 .setAutoCancel(true);
         notificationManager.notify(1,builder.build());
+        return START_STICKY;
+    }
+
+    @Override
+    public void onCreate() {
+
+
     }
 
     @Override
@@ -85,7 +93,7 @@ public class MyService extends Service implements LocationListener {
 
                     Location.distanceBetween(gps_lat1,gps_long1,gps_lat2,gps_long2,distance);
 
-                    NotificationChannel channel2 = new NotificationChannel("123","channelUnipi",
+                    /*NotificationChannel channel2 = new NotificationChannel("123","channelUnipi",
                             NotificationManager.IMPORTANCE_DEFAULT);
                     NotificationManager notificationManager2 =
                             (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -96,7 +104,7 @@ public class MyService extends Service implements LocationListener {
                             .setSmallIcon(R.drawable.ic_launcher_background)
                             .setContentText(gps_lat1 +"\n" +gps_long1+"\n" +gps_lat2 +"\n" + gps_long2)
                             .setAutoCancel(true);
-                    notificationManager2.notify(1,builder2.build());
+                    notificationManager2.notify(1,builder2.build());*/
 
                     if (dangerData.getApproved().toString().equals("true")&&distance[0]<100000.0) {
                         NotificationChannel channel = new NotificationChannel("12345","channelUnipi",
@@ -122,5 +130,11 @@ public class MyService extends Service implements LocationListener {
         });
     }
 
-
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        Intent restartServiceIntent = new Intent(getApplicationContext(),this.getClass());
+        restartServiceIntent.setPackage(getPackageName());
+        startService(restartServiceIntent);
+        super.onTaskRemoved(rootIntent);
+    }
 }

@@ -8,13 +8,16 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -29,11 +32,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class MyService extends Service implements LocationListener {
     FirebaseDatabase database;
-    FirebaseUser user;
+    String user;
     FirebaseAuth mAuth;
     LocationManager locationManager;
+    DatabaseReference myRef;
+    Boolean b=false;
+    SharedPreferences sharedPreferences;
+
     public MyService() {
     }
 
@@ -43,12 +52,34 @@ public class MyService extends Service implements LocationListener {
         return null;
     }
 
+
+
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
          super.onStartCommand(intent, flags, startId);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+        user = sharedPreferences.getString("User","");
+        Toast.makeText(getApplicationContext(), "Created", Toast.LENGTH_SHORT).show();
+        if (Objects.equals(user, "")){
+            onDestroy();
+        }
+        myRef = database.getReference().child("Users").child(user).child("Role");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue().toString().equals("Alerted User")) {
+                    b=true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        if (!b) return START_STICKY;
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -68,12 +99,6 @@ public class MyService extends Service implements LocationListener {
                 .setAutoCancel(true);
         notificationManager.notify(1,builder.build());
         return START_STICKY;
-    }
-
-    @Override
-    public void onCreate() {
-
-
     }
 
     @Override
@@ -131,10 +156,11 @@ public class MyService extends Service implements LocationListener {
     }
 
     @Override
-    public void onTaskRemoved(Intent rootIntent) {
+    public void onDestroy() {
+        Toast.makeText(getApplicationContext(), "terminated", Toast.LENGTH_SHORT).show();
         Intent restartServiceIntent = new Intent(getApplicationContext(),this.getClass());
         restartServiceIntent.setPackage(getPackageName());
         startService(restartServiceIntent);
-        super.onTaskRemoved(rootIntent);
+        super.onDestroy();
     }
 }

@@ -35,10 +35,14 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
     FirebaseDatabase database;
     FirebaseUser user;
     FirebaseAuth mAuth;
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+
         /*locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -95,9 +99,9 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
     public void RegisterForAlerts(View view){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(this,MyService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(),1234,intent,
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        intent = new Intent(this,MyService.class);
+        pendingIntent = PendingIntent.getService(getApplicationContext(),1234,intent,
                 PendingIntent.FLAG_IMMUTABLE);
         //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()
                 //+(5000),pendingIntent);
@@ -110,5 +114,9 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
         serviceIntent.putExtra("gps_long2",gps_long2 );
         serviceIntent.putExtra("gps_lat2",gps_lat2 );*/
         //startService(serviceIntent);
+    }
+    public void Stop(View view){
+        alarmManager.cancel(pendingIntent);
+        stopService(intent);
     }
 }

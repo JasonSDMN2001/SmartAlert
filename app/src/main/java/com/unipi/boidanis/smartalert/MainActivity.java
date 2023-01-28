@@ -26,6 +26,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     FirebaseUser user;
     LocationManager locationManager;
     SharedPreferences sharedPreferences;
+    CheckBox checkBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             buildAlertMessageNoGps();
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        checkBox=findViewById(R.id.checkBox);
     }
 
     private void permissions() {
@@ -124,12 +126,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     startActivity(intent);
                                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 }else if(snapshot.getValue().toString().equals("Alerted User")) {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("User",mAuth.getUid().toString());
-                                    editor.apply();
+                                    if(checkBox.isChecked()){
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("User", mAuth.getUid());
+                                        editor.apply();
+                                    }
+
                                     showMessage("Success!","Ok");
                                     Intent intent = new Intent(getApplicationContext(), MainActivity4.class);
                                     startActivity(intent);
+
                                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 }
                             }

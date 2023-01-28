@@ -27,7 +27,15 @@
             android:name=".MyService"
             android:enabled="true"
             android:exported="true" />
+        <receiver
+            android:name=".Restarter"
+            android:enabled="true"
+            android:exported="true">
+            <!--<intent-filter>
+                <action android:name="myRestarter"/>
+            </intent-filter>-->
 
+        </receiver>
         <activity
             android:name=".MainActivity4"
             android:exported="false">

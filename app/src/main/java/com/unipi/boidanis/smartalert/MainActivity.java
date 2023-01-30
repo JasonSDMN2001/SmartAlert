@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -70,6 +71,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         checkBox=findViewById(R.id.checkBox);
+        permissions2();
+        //notifications
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
+        filter.addAction(LocationManager.KEY_PROVIDER_ENABLED);
+        registerReceiver(new Restarter(),filter);
+    }
+
+    private void permissions2() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION},
+                    123);
     }
 
     private void permissions() {

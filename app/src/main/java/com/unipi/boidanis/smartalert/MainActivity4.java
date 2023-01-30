@@ -118,31 +118,38 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
                 //+(5000),pendingIntent);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),5000,pendingIntent);
         */
-        showMessage("You will now","receive updates");
+        //showMessage("You will now","receive updates");
 
         /*Intent intent =new Intent(this, Restarter.class);
         //intent.setAction("myRestarter");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,intent,PendingIntent.FLAG_IMMUTABLE);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),60000,pendingIntent);*/
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
-        filter.addAction(LocationManager.KEY_PROVIDER_ENABLED);
-        registerReceiver(new Restarter(),filter);
-    }
-    public void Stop(View view){
-        alarmManager.cancel(pendingIntent);
-        stopService(intent);
+        //startService(new Intent(this,MyService.class));
+        NotificationChannel channel = new NotificationChannel("1345", "notifications",
+                NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(channel);
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getApplicationContext(), "1345");
+        builder.setContentTitle("You will now")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentText("receive updates")
+                .setAutoCancel(true);
+        notificationManager.notify(3, builder.build());
     }
 
-    class Restarter extends BroadcastReceiver {
+
+    /*class Restarter extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) ||
                     intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION) ||
                     intent.getAction().matches(LocationManager.KEY_PROVIDER_ENABLED)) {
-                alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                Toast.makeText(getApplicationContext(), "broadcast!", Toast.LENGTH_SHORT).show();
+                startService(new Intent(getApplicationContext(),MyService.class));
+                /*alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 intent = new Intent(getApplicationContext(),MyService.class);
                 pendingIntent = PendingIntent.getService(getApplicationContext(),1234,intent,
                         PendingIntent.FLAG_IMMUTABLE);
@@ -152,5 +159,5 @@ public class MainActivity4 extends AppCompatActivity implements LocationListener
 
             }
         }
-    }
+    }*/
 }

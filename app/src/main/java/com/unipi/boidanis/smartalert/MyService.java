@@ -33,6 +33,9 @@ import androidx.work.BackoffPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -119,13 +122,58 @@ public class MyService extends Service implements LocationListener {
 
         //location search
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
+
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        Double gps_long1 = location.getLongitude();
+                        Double gps_lat1 = location.getLatitude();
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference ref2 = database.getReference().child("Alerts");
+                        ref2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    dangerData = dataSnapshot.getValue(DangerData.class);
+                                    gps_long2 = dangerData.getLongtitude();
+                                    gps_lat2 = dangerData.getLat();
+                                    Location.distanceBetween(gps_lat1, gps_long1, gps_lat2, gps_long2, distance);
+                                    if (dangerData.getApproved().toString().equals("true") && distance[0] < 100000.0) {
+                                        NotificationChannel channel = new NotificationChannel("1245", "location2",
+                                                NotificationManager.IMPORTANCE_DEFAULT);
+                                        NotificationManager notificationManager =
+                                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                        notificationManager.createNotificationChannel(channel);
+                                        NotificationCompat.Builder builder =
+                                                new NotificationCompat.Builder(getApplicationContext(), "1245");
+                                        builder.setContentTitle(dangerData.getDangerType()+"2")
+                                                .setSmallIcon(R.drawable.ic_launcher_background)
+                                                .setContentText(dangerData.getDescription())
+                                                .setAutoCancel(true);
+                                        notificationManager.notify(3, builder.build());
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        onDestroy();
+                    }
+                });
+        //also working
+
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        //locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
         return START_NOT_STICKY;
     }
 

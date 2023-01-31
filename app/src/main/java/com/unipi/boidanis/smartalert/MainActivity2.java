@@ -116,22 +116,6 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-    public void write(View view){
-        reference.setValue(data.getText().toString());
-    }
-    public void read(View view){
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                showMessage("DB data change", snapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
     public void write2(View view){
         if(dangerType!=null&&data!=null&&gps!=null&&currentTime!=null)
         {

@@ -62,7 +62,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         database = FirebaseDatabase.getInstance();
         user = mAuth.getCurrentUser();
 
-        reference = database.getReference("message");
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

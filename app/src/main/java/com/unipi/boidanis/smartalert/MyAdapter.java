@@ -54,7 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         TextView dangerType,date,gps,number;
         EditText description;
         ImageView image;
-        Button button1,button2;
+        Button button1,button2,button3;
         String key;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +66,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             number=itemView.findViewById(R.id.textView26);
             button1=itemView.findViewById(R.id.button7);
             button2=itemView.findViewById(R.id.button9);
+            button3=itemView.findViewById(R.id.button3);
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -110,7 +111,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
                     });
                 }
             });
-
+            button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference reference = database.getReference().child("Alerts").child(key);
+                    reference.removeValue();
+                }
+            });
         }
     }
 

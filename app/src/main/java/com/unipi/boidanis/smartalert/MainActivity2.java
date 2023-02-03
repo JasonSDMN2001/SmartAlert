@@ -46,7 +46,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     String dangerType;
     LocationManager locationManager;
     TextView textView4;
-    String currentTime;
+    Date currentTime;
     Location gps;
     ImageView image;
     private String key;
@@ -72,7 +72,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-        currentTime = Calendar.getInstance().getTime().toString();
+        currentTime = Calendar.getInstance().getTime();
         TextView textView3 = findViewById(R.id.textView3);
         textView3.setText(currentTime.toString());
         textView4 = findViewById(R.id.textView4);
@@ -121,7 +121,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         {
             DatabaseReference ref2 = database.getReference().child("Alerts");
             key = ref2.push().getKey();
-            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,null,false);
+            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,null,false,1);
 
             ref2.child(key).setValue(dangerData);
         }else{

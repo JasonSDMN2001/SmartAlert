@@ -49,6 +49,7 @@
             android:text="Gps"
             android:textColor="#000"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
@@ -60,6 +61,7 @@
             android:text="Date"
             android:textColor="#000"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
@@ -95,6 +97,7 @@
             android:text="Gps"
             android:textColor="#000"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
@@ -106,38 +109,59 @@
             android:text="Date"
             android:textColor="#000"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="215dp"
+            android:layout_marginEnd="5dp"
+            android:padding="10dp"
+            android:text="Times Reported"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="215dp"
+            android:layout_marginEnd="5dp"
+            android:padding="10dp"
+            android:text="Number"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars"
-            android:layout_marginTop="215dp"
-            />
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="265dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <Button
             android:id="@+id/button7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="170dp"
-            android:layout_marginTop="255dp"
-            android:text="Approve"
+            android:layout_marginTop="295dp"
             android:backgroundTint="@android:color/holo_blue_light"
-            />
+            android:text="Approve" />
 
         <Button
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="280dp"
-            android:layout_marginTop="255dp"
-            android:text="Disapprove"
+            android:layout_marginTop="295dp"
             android:backgroundTint="@android:color/holo_red_light"
-            />
+            android:text="Disapprove" />
 
 
     </RelativeLayout>
-
 
 
 </androidx.cardview.widget.CardView>

@@ -42,6 +42,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -56,7 +58,6 @@ public class MyService extends Service{
     Double gps_long2, gps_lat2;
     DangerData dangerData;
     float[] distance = new float[1];
-    ;
 
     public MyService() {
     }
@@ -70,7 +71,6 @@ public class MyService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         database = FirebaseDatabase.getInstance();
@@ -110,7 +110,7 @@ public class MyService extends Service{
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
         }
-
+        Date time = Calendar.getInstance().getTime();
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -126,22 +126,15 @@ public class MyService extends Service{
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     dangerData = dataSnapshot.getValue(DangerData.class);
-                                    gps_long2 = dangerData.getLongtitude();
-                                    gps_lat2 = dangerData.getLat();
-                                    Location.distanceBetween(gps_lat1, gps_long1, gps_lat2, gps_long2, distance);
-                                    if (dangerData.getApproved().toString().equals("true") && distance[0] < 100000.0) {
-                                        NotificationChannel channel = new NotificationChannel("1245", "location2",
-                                                NotificationManager.IMPORTANCE_DEFAULT);
-                                        NotificationManager notificationManager =
-                                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                        notificationManager.createNotificationChannel(channel);
-                                        NotificationCompat.Builder builder =
-                                                new NotificationCompat.Builder(getApplicationContext(), "1245");
-                                        builder.setContentTitle(dangerData.getDangerType()+"2")
-                                                .setSmallIcon(R.drawable.ic_launcher_background)
-                                                .setContentText(dangerData.getDescription())
-                                                .setAutoCancel(true);
-                                        notificationManager.notify(3, builder.build());
+                                    if(dangerData.getApproved().toString().equals("true")) {
+                                        if(time.getTime()-dangerData.getDate().getTime()<86400*1000) { //1 day
+                                            gps_long2 = dangerData.getLongtitude();
+                                            gps_lat2 = dangerData.getLat();
+                                            Location.distanceBetween(gps_lat1, gps_long1, gps_lat2, gps_long2, distance);
+                                            if (distance[0] < 10000.0) { //10 km
+                                                Notification(dangerData.getDangerType(), dangerData.getDescription(),3);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -158,6 +151,20 @@ public class MyService extends Service{
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         //locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
         return START_NOT_STICKY;
+    }
+    protected void Notification(String title,String description,int i){
+        NotificationChannel channel = new NotificationChannel("1245", "location2",
+                NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(channel);
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getApplicationContext(), "1245");
+        builder.setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentText(description)
+                .setAutoCancel(true);
+        notificationManager.notify(i, builder.build());
     }
     @Override
     public void onDestroy() {

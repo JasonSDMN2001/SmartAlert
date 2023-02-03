@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ public class MainActivity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-
+        startService(new Intent(this,MyService2.class));
         database = FirebaseDatabase.getInstance();
         ref = database.getReference().child("Alerts");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView1);

@@ -41,9 +41,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         holder.dangerType.setText(dangerData.getDangerType());
         holder.description.setText(dangerData.getDescription());
         holder.gps.setText(dangerData.getLongtitude()+","+dangerData.getLat());
-        holder.date.setText(dangerData.getDate());
+        holder.date.setText(dangerData.getDate().toString());
         holder.key = dangerData.getKey();
-
+        holder.number.setText(String.valueOf(dangerData.getNumber()));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         return list.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView dangerType,date,gps;
+        TextView dangerType,date,gps,number;
         EditText description;
         ImageView image;
         Button button1,button2;
@@ -63,6 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             gps=itemView.findViewById(R.id.textView23);
             date=itemView.findViewById(R.id.textView24);
             image=itemView.findViewById(R.id.imageView3);
+            number=itemView.findViewById(R.id.textView26);
             button1=itemView.findViewById(R.id.button7);
             button2=itemView.findViewById(R.id.button9);
             button1.setOnClickListener(new View.OnClickListener() {

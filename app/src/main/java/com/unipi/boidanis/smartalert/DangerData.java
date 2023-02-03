@@ -10,11 +10,13 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 public class DangerData {
-    private String dangerType,description,date;
+    private String dangerType,description;
+    private Date date;
     private Double longtitude,lat;
     private ImageView image;
     private Boolean approved;
     private String key;
+    private int number;
     public DangerData(){}
     public String getDangerType() {
         return dangerType;
@@ -64,11 +66,11 @@ public class DangerData {
         this.key = key;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -80,7 +82,15 @@ public class DangerData {
         this.image = image;
     }
 
-    public DangerData(String key,String dangerType,String description,Double longtitude,Double lat,String date,@Nullable ImageView image,Boolean approved) {
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public DangerData(String key, String dangerType, String description, Double longtitude, Double lat, Date date, @Nullable ImageView image, Boolean approved,int number) {
         this.key=key;
         this.dangerType=dangerType;
         this.description=description;
@@ -89,5 +99,6 @@ public class DangerData {
         this.date=date;
         this.image=image;
         this.approved=approved;
+        this.number=number;
     }
 }

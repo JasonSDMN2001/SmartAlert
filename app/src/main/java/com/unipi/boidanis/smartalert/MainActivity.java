@@ -102,25 +102,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
     public void signup(View view){
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            showMessage("Success!","User authenticated");
-                            showMessage("Success!",mAuth.getUid());
-                            if(!role.matches("")){
+        if(!role.matches("")){
+            mAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                showMessage("Success!","User authenticated");
+                                showMessage("Success!",mAuth.getUid());
                                 myRef=database.getReference("Users");
                                 myRef.child(mAuth.getUid()).child("Role").setValue(role);
-                            }else{
-                                showMessage("Error","Choose a Role");
+                            }else {
+                                showMessage("Error",task.getException().getLocalizedMessage());
                             }
-
-                        }else {
-                            showMessage("Error",task.getException().getLocalizedMessage());
                         }
-                    }
-                });
+                    });
+        }else{
+            showMessage("Error","Choose a Role");
+        }
     }
     public void signin(View view){
         mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
@@ -131,6 +130,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if(snapshot.getValue().toString().equals("Employee")){
+                                    if(checkBox.isChecked()){
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("User", mAuth.getUid());
+                                        editor.apply();
+                                    }
                                     showMessage("Success!","Ok");
                                     Intent intent = new Intent(getApplicationContext(), MainActivity3.class);
                                     startActivity(intent);

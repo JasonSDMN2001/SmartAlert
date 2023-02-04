@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="Choose image"
+        android:text="@string/choose_image"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.537"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="Descreption"
+        android:hint="@string/descreption"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner2" />
@@ -47,7 +47,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="23dp"
         android:onClick="write2"
-        android:text="Write2"
+        android:text="@string/write2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -86,7 +86,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="52dp"
         android:onClick="findgps"
-        android:text="Find gps"
+        android:text="@string/find_gps"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 

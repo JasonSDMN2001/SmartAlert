@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartAlert</string>
+    <string name="username">Όνομα Χρήστη</string>
+    <string name="sign_in">Σύνδεση</string>
+    <string name="keep_me_signed_in">Αποθήκευση στοιχείων σύνδεσης</string>
+    <string name="choose_role">Επιλέξτε Ρόλο</string>
+    <string name="sign_up">Εγγραφή</string>
+    <string name="choose_image">Επιλέξτε εικόνα</string>
+    <string name="descreption">Περιγραφή</string>
+    <string name="find_gps">Εύρεση τοποθεσίας</string>
+    <string name="write2">Καταγραφή</string>
+    <string name="dangers_to_approve">Περιστατικά προς εξέταση</string>
+    <string name="ongoing_dangers">Τρέχουσες καταστάσεις κινδύνου</string>
+    <string name="you_are_logged_in_and_waiting_to_be_alerted">Είστε συνδεδεμένος και θα ειδοποιηθείτε σε περίπτωση κατάστασης κινδύνου</string>
+    <string name="dangertype">Τύπος κινδύνου</string>
+    <string name="description">Περιγραφή</string>
+    <string name="gps">Τοποθεσία</string>
+    <string name="date">Ημερομηνία</string>
+    <string name="times_reported">Πλήθος αναφορών</string>
+    <string name="approve">Αποδοχή</string>
+    <string name="disapprove">Απόρριψη</string>
+    <string name="delete_alert">Διαγραφή ειδοποίησης</string>
+</resources>

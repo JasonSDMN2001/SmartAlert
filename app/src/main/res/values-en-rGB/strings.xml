@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">SmartAlert</string>
+    <string name="app_name">SmartAlert</string>
     <string name="username">username</string>
     <string name="sign_in">Sign-in</string>
-    <string name="keep_me_signed_in">keep me signed in?</string>
+    <string name="keep_me_signed_in">keep me signed in</string>
     <string name="choose_role">Choose Role</string>
     <string name="sign_up">Sign-up</string>
     <string name="choose_image">Choose image</string>

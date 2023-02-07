@@ -109,6 +109,17 @@ public class MyService2 extends Service {
                                         dangerData2.setNumber(i + 1);
                                         String key2 = dangerData2.getKey();
                                         ref2.child(key2).setValue(dangerData2);
+                                    }else if (dangerData.getNumber()==dangerData2.getNumber()&&
+                                            dangerData.getKey()!=dangerData2.getKey()){
+                                        dataSnapshot1.getRef().removeValue();
+
+                                        dangerData.setNumber(2);
+                                        String key2 = dangerData.getKey();
+                                        ref2.child(key2).setValue(dangerData);
+                                    }else if (dangerData.getNumber()==dangerData2.getNumber()&&
+                                            dangerData.getKey()==dangerData2.getKey()){
+                                        String key2 = dangerData.getKey();
+                                        ref2.child(key2).setValue(dangerData);
                                     }
                                 }
                             }

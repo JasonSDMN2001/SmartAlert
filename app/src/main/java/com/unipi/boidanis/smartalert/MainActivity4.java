@@ -40,6 +40,7 @@ public class MainActivity4 extends AppCompatActivity  {
 
     TextView textView;
     SharedPreferences sharedPreferences;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,10 @@ public class MainActivity4 extends AppCompatActivity  {
         } finally {
             Toast.makeText(getApplicationContext(), "You wont receive notifications from now on", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void signout(View view){
+        mAuth.signOut();
     }
 
 

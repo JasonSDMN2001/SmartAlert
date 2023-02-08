@@ -30,4 +30,6 @@
     <string name="datetime">Ημερομηνία κ ώρα</string>
     <string name="choose_category">Επιλέξτε κατηγορία</string>
     <string name="description2">Περιγραφή</string>
+    <string name="sign_out">Αποσύνδεση</string>
+    <string name="sign_out2">Αποσύνδεση</string>
 </resources>

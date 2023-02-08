@@ -30,4 +30,6 @@
     <string name="datetime">DateTime</string>
     <string name="choose_category">Choose category</string>
     <string name="description2">Description</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out2">Sign out</string>
 </resources>

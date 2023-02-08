@@ -194,4 +194,9 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     124);
     }
+
+    /*public void signout(View view){
+        mAuth.signOut();
+    } */
+
 }

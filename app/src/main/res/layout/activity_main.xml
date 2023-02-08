@@ -6,23 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginEnd="53dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="124dp"
         android:onClick="signin"
         android:text="@string/sign_in"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
@@ -33,58 +22,72 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="72dp"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.166" />
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="1234567"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="31dp"
-        android:onClick="signup"
-        android:text="@string/sign_up"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="26dp"
-        android:text="@string/choose_role"
-        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        android:hint="password"
+        android:inputType="textPersonName|textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="28dp"
         android:text="@string/keep_me_signed_in"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.339"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="126dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:background="#8BC34A"
+        android:fontFamily="sans-serif"
+        android:text="@string/sign_in2"
+        android:textColor="#3F51B5"
+        android:textSize="34sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="279dp"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:contextClickable="false"
+        android:cursorVisible="false"
+        android:defaultFocusHighlightEnabled="false"
+        android:linksClickable="false"
+        android:longClickable="false"
+        android:text="@string/don_t_have_an_account_yet_create_one"
+        android:textAllCaps="false"
+        android:textColor="#3F51B5"
+        android:textIsSelectable="false"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.801" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

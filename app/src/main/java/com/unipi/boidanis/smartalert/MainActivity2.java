@@ -125,9 +125,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
             DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,null,false,1);
 
             ref2.child(key).setValue(dangerData);
-            //showMessage("Success","Your danger alert has been submitted");
             Toast.makeText(MainActivity2.this, "Your danger alert has been submitted!", Toast.LENGTH_SHORT).show();
-
         }else{
             showMessage("Error", "missing stuff");
         }

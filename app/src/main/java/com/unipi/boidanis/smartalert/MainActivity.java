@@ -30,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,24 +38,34 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, LocationListener {
+public class MainActivity extends AppCompatActivity implements LocationListener {
     EditText email,password;
     FirebaseAuth mAuth;
-    private String role;
+   // private String role;
     FirebaseDatabase database;
-    DatabaseReference myRef,myRef2;
+    DatabaseReference myRef2;
     FirebaseUser user;
     LocationManager locationManager;
     SharedPreferences sharedPreferences;
     CheckBox checkBox;
+    TextView textView,textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = findViewById(R.id.textView6);
+        textView2 = findViewById(R.id.textView9);
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,MainActivity5.class);
+                startActivity(intent);
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         email= findViewById(R.id.editTextTextPersonName);
         password=findViewById(R.id.editTextTextPersonName2);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+      /*  Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.role_array, android.R.layout.simple_spinner_item);
@@ -62,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(this); */
         database = FirebaseDatabase.getInstance();
         permissions();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -101,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     void showMessage(String title, String message){
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
-    public void signup(View view){
+    /*public void signup(View view){
         if(!role.matches("")){
             mAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -120,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }else{
             showMessage("Error","Choose a Role");
         }
-    }
+    } */
     public void signin(View view){
         mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                 .addOnCompleteListener((task)->{
@@ -172,15 +183,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    @Override
+  /*  @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         role = (String)adapterView.getItemAtPosition(i);
-    }
+    } */
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+   // @Override
+   /* public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
+    } */
     private void buildAlertMessageNoGps() {
         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")

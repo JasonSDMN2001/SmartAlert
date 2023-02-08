@@ -131,7 +131,7 @@ public class MyService extends Service{
                                             gps_long2 = dangerData.getLongtitude();
                                             gps_lat2 = dangerData.getLat();
                                             Location.distanceBetween(gps_lat1, gps_long1, gps_lat2, gps_long2, distance);
-                                            if (distance[0] < 10000.0) { //10 km
+                                            if (distance[0] < 100000.0) { //10 km
                                                 Notification(dangerData.getDangerType(), dangerData.getDescription(),3);
                                             }
                                         }

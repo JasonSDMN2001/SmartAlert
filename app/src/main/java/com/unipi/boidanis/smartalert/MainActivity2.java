@@ -1,6 +1,8 @@
 package com.unipi.boidanis.smartalert;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -51,9 +53,10 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     Location gps;
     ImageView image;
     private String key;
-    //Button button;
+    Button button;
     //Uri filepath;
     //private final int PICK_IMAGE_REQUEST = 71;
+    private final int GALLERY_REQ_CODE = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +87,24 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
         }
-        image = findViewById(R.id.imageView);
+
+
+        image = findViewById(R.id.imgGallery);
+        button = findViewById(R.id.button8);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iGallery = new Intent(Intent.ACTION_PICK);
+                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(iGallery,GALLERY_REQ_CODE);
+
+            }
+        });
+
+
+
+
+
         /*button = findViewById(R.id.button8);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,29 +113,40 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
             }
         });*/
     }
-   /* private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
-            filepath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
-                image.setImageBitmap(bitmap);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
+        if(resultCode == RESULT_OK){
+            if(requestCode == GALLERY_REQ_CODE){
+                image.setImageURI(data.getData());
             }
         }
-    }*/
+    }
+
+    /* private void chooseImage() {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        }
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                    && data != null && data.getData() != null )
+            {
+                filepath = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
+                    image.setImageBitmap(bitmap);
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }*/
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -125,7 +156,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         {
             DatabaseReference ref2 = database.getReference().child("Alerts");
             key = ref2.push().getKey();
-            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,null,false,1);
+            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,image,false,1);
 
             ref2.child(key).setValue(dangerData);
             Toast.makeText(MainActivity2.this, "Your danger alert has been submitted!", Toast.LENGTH_SHORT).show();

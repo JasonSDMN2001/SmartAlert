@@ -90,7 +90,7 @@ public class DangerData {
         this.number = number;
     }
 
-    public DangerData(String key, String dangerType, String description, Double longtitude, Double lat, Date date, @Nullable ImageView image, Boolean approved,int number) {
+    public DangerData(String key, String dangerType, String description, Double longtitude, Double lat, Date date,ImageView image, Boolean approved,int number) {
         this.key=key;
         this.dangerType=dangerType;
         this.description=description;

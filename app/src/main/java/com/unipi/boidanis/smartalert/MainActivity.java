@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                                 }else if(snapshot.getValue().toString().equals("Alerting User")) {
                                     showMessage("Success!","Ok");
                                     Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                                    intent.putExtra("myMessage",email.getText().toString());
                                     startActivity(intent);
                                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 }else if(snapshot.getValue().toString().equals("Alerted User")) {

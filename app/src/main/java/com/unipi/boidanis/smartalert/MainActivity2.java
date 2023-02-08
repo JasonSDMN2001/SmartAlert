@@ -46,7 +46,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     FirebaseUser user;
     String dangerType;
     LocationManager locationManager;
-    TextView textView4;
+    TextView textView4,textView2;
     Date currentTime;
     Location gps;
     ImageView image;
@@ -77,6 +77,9 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         TextView textView3 = findViewById(R.id.textView3);
         textView3.setText(currentTime.toString());
         textView4 = findViewById(R.id.textView4);
+        textView2 = findViewById(R.id.textView2);
+        String s = getIntent().getStringExtra("myMessage");
+        textView2.setText("Welcome" +" "+ s +","+ "\n" + "You can now create your danger alert:");
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();

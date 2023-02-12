@@ -226,8 +226,13 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
                     124);
     }
 
-    /*public void signout(View view){
-        mAuth.signOut();
-    } */
+    public void signout(View view){
+        if (mAuth.getCurrentUser() != null) {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(MainActivity2.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 
 }

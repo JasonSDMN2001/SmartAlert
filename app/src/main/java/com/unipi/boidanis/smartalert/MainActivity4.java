@@ -64,7 +64,12 @@ public class MainActivity4 extends AppCompatActivity  {
     }
 
     public void signout(View view){
-        mAuth.signOut();
+        if (mAuth.getCurrentUser() != null) {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
 

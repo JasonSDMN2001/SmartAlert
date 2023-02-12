@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -56,7 +57,7 @@ public class MainActivity5 extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void signup(View view){
-        if(!role.matches("")){
+        if(!role.matches("") && !email.getText().toString().equals("") && !password.getText().toString().equals("")){
             mAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -66,13 +67,15 @@ public class MainActivity5 extends AppCompatActivity implements AdapterView.OnIt
                                 showMessage("Success!",mAuth.getUid());
                                 myRef=database.getReference("Users");
                                 myRef.child(mAuth.getUid()).child("Role").setValue(role);
+                                Intent intent = new Intent(getApplicationContext(),MainActivity5.class);
+                                startActivity(intent);
                             }else {
                                 showMessage("Error",task.getException().getLocalizedMessage());
                             }
                         }
                     });
         }else{
-            showMessage("Error","Choose a Role");
+            showMessage("Error","Some fields are wrong");
         }
     }
 

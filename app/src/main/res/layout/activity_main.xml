@@ -25,10 +25,13 @@
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.166"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
@@ -38,10 +41,13 @@
         android:ems="10"
         android:hint="password"
         android:inputType="textPersonName|textPassword"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        android:autofillHints="" />
 
     <CheckBox
         android:id="@+id/checkBox"

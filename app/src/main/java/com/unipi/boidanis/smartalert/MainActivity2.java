@@ -90,7 +90,14 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
         }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            permissions();
+        }
 
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         uploadBtn = findViewById(R.id.button2);
         imageView = findViewById(R.id.imgGallery);
         showAllBtn = findViewById(R.id.button8);
@@ -206,7 +213,6 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        showMessage("finally","");
         gps=location;
         textView4.setText(location.getLatitude()+","+location.getLongitude());
         locationManager.removeUpdates(this);
@@ -228,18 +234,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         final android.app.AlertDialog alert = builder.create();
         alert.show();
     }
-    public void findgps(View view){
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            permissions();
-        }
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        showMessage("Waiting","");
-    }
     private void permissions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED)

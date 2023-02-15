@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -42,8 +44,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -132,7 +137,10 @@ public class MyService extends Service{
                                             gps_lat2 = dangerData.getLat();
                                             Location.distanceBetween(gps_lat1, gps_long1, gps_lat2, gps_long2, distance);
                                             if (distance[0] < 100000.0) { //10 km
-                                                Notification(dangerData.getDangerType(), dangerData.getDescription(),3);
+
+                                                   // Notification(dangerData.getDangerType(), dangerData.getDescription(),gps_long2,gps_lat2,3);
+                                                   Notification(dangerData.getDangerType(),dangerData.getDescription(),3);
+
                                             }
                                         }
                                     }
@@ -152,7 +160,15 @@ public class MyService extends Service{
         //locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
         return START_NOT_STICKY;
     }
-    protected void Notification(String title,String description,int i){
+    protected void Notification(String title,String description,int i) {
+        /*Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+        addresses = geocoder.getFromLocation(long1, long2, 1);
+        String city = addresses.get(0).getLocality(); */
+
+
+
         NotificationChannel channel = new NotificationChannel("1245", "location2",
                 NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManager notificationManager =
@@ -162,7 +178,9 @@ public class MyService extends Service{
                 new NotificationCompat.Builder(getApplicationContext(), "1245");
         builder.setContentTitle(title)
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentText(description)
+                .setContentText(description+"\n Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.")
+              //  .setStyle(new NotificationCompat.BigTextStyle()
+              //          .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 + long2 + "\n" + "Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
                 .setAutoCancel(true);
         notificationManager.notify(i, builder.build());
     }

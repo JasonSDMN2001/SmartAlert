@@ -13,7 +13,7 @@ public class DangerData {
     private String dangerType,description;
     private Date date;
     private Double longtitude,lat;
-    private ImageView image;
+    private String imageUrl;
     private Boolean approved;
     private String key;
     private int number;
@@ -74,12 +74,12 @@ public class DangerData {
         this.date = date;
     }
 
-    public ImageView getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(ImageView image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getNumber() {
@@ -90,14 +90,14 @@ public class DangerData {
         this.number = number;
     }
 
-    public DangerData(String key, String dangerType, String description, Double longtitude, Double lat, Date date,ImageView image, Boolean approved,int number) {
+    public DangerData(String key, String dangerType, String description, Double longtitude, Double lat, Date date,@Nullable String imageUrl, Boolean approved,int number) {
         this.key=key;
         this.dangerType=dangerType;
         this.description=description;
         this.longtitude=longtitude;
         this.lat=lat;
         this.date=date;
-        this.image=image;
+        this.imageUrl=imageUrl;
         this.approved=approved;
         this.number=number;
     }

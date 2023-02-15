@@ -1,5 +1,6 @@
 package com.unipi.boidanis.smartalert;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,12 +49,13 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     FirebaseUser user;
     String dangerType;
     LocationManager locationManager;
-    TextView textView4,textView2;
+    TextView textView4,textView2,textView66;
     Date currentTime;
     Location gps;
-    ImageView image;
+    ImageView imageView;
     private String key;
-    Button button;
+    Button showAllBtn,uploadBtn;
+    private Uri imageUri;
     //Uri filepath;
     //private final int PICK_IMAGE_REQUEST = 71;
     private final int GALLERY_REQ_CODE = 1000;
@@ -81,6 +83,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         textView3.setText(currentTime.toString());
         textView4 = findViewById(R.id.textView4);
         textView2 = findViewById(R.id.textView2);
+        textView66 = findViewById(R.id.textView14);
         String s = getIntent().getStringExtra("myMessage");
         textView2.setText("Welcome" +" "+ s +","+ "\n" + "You can now create your danger alert:");
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -88,10 +91,22 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
             buildAlertMessageNoGps();
         }
 
+        uploadBtn = findViewById(R.id.button2);
+        imageView = findViewById(R.id.imgGallery);
+        showAllBtn = findViewById(R.id.button8);
 
-        image = findViewById(R.id.imgGallery);
-        button = findViewById(R.id.button8);
-        button.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, 2);
+            }
+        });
+
+        /*
+        showAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iGallery = new Intent(Intent.ACTION_PICK);
@@ -99,7 +114,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
                 startActivityForResult(iGallery,GALLERY_REQ_CODE);
 
             }
-        });
+        }); */
 
 
 
@@ -113,16 +128,26 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
             }
         });*/
     }
-
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 2 && requestCode == RESULT_OK && data != null){
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+        }
+    }
+
+   /* @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if(requestCode == GALLERY_REQ_CODE){
                 image.setImageURI(data.getData());
+                textView66.setText(image.toString());
             }
         }
-    }
+    } */
 
     /* private void chooseImage() {
             Intent intent = new Intent();
@@ -156,7 +181,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         {
             DatabaseReference ref2 = database.getReference().child("Alerts");
             key = ref2.push().getKey();
-            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,image,false,1);
+            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,imageView.toString(),false,1);
 
             ref2.child(key).setValue(dangerData);
             Toast.makeText(MainActivity2.this, "Your danger alert has been submitted!", Toast.LENGTH_SHORT).show();

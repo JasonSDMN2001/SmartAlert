@@ -138,9 +138,7 @@ public class MyService extends Service{
                                             Location.distanceBetween(gps_lat1, gps_long1, gps_lat2, gps_long2, distance);
                                             if (distance[0] < 100000.0) { //10 km
 
-                                                   // Notification(dangerData.getDangerType(), dangerData.getDescription(),gps_long2,gps_lat2,3);
-                                                   Notification(dangerData.getDangerType(),dangerData.getDescription(),3);
-
+                                                    Notification(dangerData.getDangerType(), dangerData.getDescription(),gps_long2,gps_lat2,3);
                                             }
                                         }
                                     }
@@ -160,12 +158,17 @@ public class MyService extends Service{
         //locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
         return START_NOT_STICKY;
     }
-    protected void Notification(String title,String description,int i) {
+    protected void Notification(String title,String description,Double long1,Double long2,int i) {
         /*Geocoder geocoder;
-        List<Address> addresses;
+        List<Address> addresses = null;
         geocoder = new Geocoder(this, Locale.getDefault());
-        addresses = geocoder.getFromLocation(long1, long2, 1);
-        String city = addresses.get(0).getLocality(); */
+        try {
+            addresses = geocoder.getFromLocation(long1, long2, 1);
+           // String city = addresses.get(0).getLocality();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //String city = addresses.get(0).getLocality(); */
 
 
 
@@ -176,13 +179,55 @@ public class MyService extends Service{
         notificationManager.createNotificationChannel(channel);
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(getApplicationContext(), "1245");
-        builder.setContentTitle(title)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentText(description+"\n Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.")
-              //  .setStyle(new NotificationCompat.BigTextStyle()
-              //          .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 + long2 + "\n" + "Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
-                .setAutoCancel(true);
-        notificationManager.notify(i, builder.build());
+        if (title.equals("Πλημμυρα")){
+            builder.setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν βρεθείτε μπροστά σε δρόμο που έχει πλημμυρίσει σταματήστε και αλλάξτε κατεύθυνση. Αποφύγετε τα λιμνάζοντα νερά.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
+                    .setAutoCancel(true);
+            notificationManager.notify(i, builder.build());
+        }
+        else if(title.equals("Πυρκαγια")){
+            builder.setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν η πυρκαγιά πλησιάζει στο σπίτι σας Διατηρείστε την ψυχραιμία σας. Μεταφέρετε όλα τα εύφλεκτα υλικά από τον περίγυρο του κτιρίου σε κλειστούς και προφυλαγμένους χώρους. Κλείστε όλες τις διόδους (καμινάδες, παράθυρα, πόρτες κλπ.)Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
+                    .setAutoCancel(true);
+            notificationManager.notify(i, builder.build());
+        }
+        else if(title.equals("Χιονοθύελα")){
+            builder.setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Πηγαίνετε σε ασφαλές μέρος χωρίς να εκτεθείτε στην χιονοθύελλα. Ντυθείτε με πολλά στρώματα με ελαφριά και ζεστά ρούχα αντί για ένα βαρύ ρούχο. Προτιμήστε ένα εξωτερικό ρούχο. Φορέστε ζεστές αδιάβροχες μπότες.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
+                    .setAutoCancel(true);
+            notificationManager.notify(i, builder.build());
+        }
+        else if(title.equals("Σεισμος")){
+            builder.setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που βρίσκεστε σε εσωτερικό χώρο,εκκενώστε το κτίριο από το κλιμακοστάσιο.Καταφύγετε σε ανοιχτό και ασφαλή χώρο.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
+                    .setAutoCancel(true);
+            notificationManager.notify(i, builder.build());
+        }
+        else if(title.equals("Ανεμοστροβιλος")){
+            builder.setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Προληπτικά μείνετε μακριά από παράθυρα, γωνίες, πόρτες  και εξωτερικούς τοίχους.Προσέξτε τα συντρίμμια που ίπτανται. Καθίστε στο πάτωμα δίπλα σ΄ έναν εσωτερικό τοίχο ή κάτω από ένα βαρύ έπιπλο, όπως ένα τραπέζι.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
+                    .setAutoCancel(true);
+            notificationManager.notify(i, builder.build());
+        }
+        else if(title.equals("Καπνος/Σταχτη")){
+            builder.setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που δεν είναι εφικτή η απομάκρυνση από τη περιοχή, παραμείνετε όσο το δυνατόν περισσότερο σε κλειστούς χώρους και διατηρείστε τον εσωτερικό αέρα όσο το δυνατόν περισσότερο καθαρό.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
+                    .setAutoCancel(true);
+            notificationManager.notify(i, builder.build());
+        }
+
     }
     @Override
     public void onDestroy() {

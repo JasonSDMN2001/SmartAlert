@@ -1,6 +1,8 @@
 package com.unipi.boidanis.smartalert;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     Context context;
@@ -41,7 +46,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         DangerData dangerData=list.get(position);
         holder.dangerType.setText(dangerData.getDangerType());
         holder.description.setText(dangerData.getDescription());
-        holder.gps.setText(dangerData.getLongtitude()+","+dangerData.getLat());
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(dangerData.getLat(), dangerData.getLongtitude(), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String cityName = addresses.get(0).getAddressLine(0);
+        holder.gps.setText(cityName);
         holder.date.setText(dangerData.getDate().toString());
         holder.key = dangerData.getKey();
         holder.number.setText(String.valueOf(dangerData.getNumber()));

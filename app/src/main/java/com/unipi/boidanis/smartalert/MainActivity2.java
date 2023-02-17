@@ -17,6 +17,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -52,6 +54,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener, LocationListener {
     EditText data;
@@ -321,7 +325,15 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onLocationChanged(@NonNull Location location) {
         gps=location;
-        textView4.setText(location.getLatitude()+","+location.getLongitude());
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(gps.getLatitude(), gps.getLongitude(), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String cityName = addresses.get(0).getAddressLine(0);
+        textView4.setText(cityName);
         locationManager.removeUpdates(this);
     }
     private void buildAlertMessageNoGps() {

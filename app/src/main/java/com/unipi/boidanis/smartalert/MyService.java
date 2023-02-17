@@ -158,19 +158,16 @@ public class MyService extends Service{
         //locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
         return START_NOT_STICKY;
     }
-    protected void Notification(String title,String description,Double long1,Double long2,int i) {
-        /*Geocoder geocoder;
+    protected void Notification(String title,String description,Double long2,Double lat2,int i) {
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = null;
-        geocoder = new Geocoder(this, Locale.getDefault());
         try {
-            addresses = geocoder.getFromLocation(long1, long2, 1);
-           // String city = addresses.get(0).getLocality();
+            addresses = geocoder.getFromLocation(lat2, long2, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //String city = addresses.get(0).getLocality(); */
-
-
+        String cityName = addresses.get(0).getAddressLine(0);
 
         NotificationChannel channel = new NotificationChannel("1245", "location2",
                 NotificationManager.IMPORTANCE_DEFAULT);
@@ -182,29 +179,24 @@ public class MyService extends Service{
         builder.setContentTitle(title)
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setAutoCancel(true);
-        if (title.equals("Πλημμυρα")){
-                builder.setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν βρεθείτε μπροστά σε δρόμο που έχει πλημμυρίσει σταματήστε και αλλάξτε κατεύθυνση. Αποφύγετε τα λιμνάζοντα νερά.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
-        }
-        else if(title.equals("Πυρκαγια")){
+        if (title.equals("Πλημμυρα")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν η πυρκαγιά πλησιάζει στο σπίτι σας Διατηρείστε την ψυχραιμία σας. Μεταφέρετε όλα τα εύφλεκτα υλικά από τον περίγυρο του κτιρίου σε κλειστούς και προφυλαγμένους χώρους. Κλείστε όλες τις διόδους (καμινάδες, παράθυρα, πόρτες κλπ.)Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
-        }
-        else if(title.equals("Χιονοθύελα")){
+                    .bigText(description + "\n" + "Μήνυμα για " + title + " στην περιοχή:" + cityName + "\n" + "Αν βρεθείτε μπροστά σε δρόμο που έχει πλημμυρίσει σταματήστε και αλλάξτε κατεύθυνση. Αποφύγετε τα λιμνάζοντα νερά.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
+        } else if (title.equals("Πυρκαγια")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Πηγαίνετε σε ασφαλές μέρος χωρίς να εκτεθείτε στην χιονοθύελλα. Ντυθείτε με πολλά στρώματα με ελαφριά και ζεστά ρούχα αντί για ένα βαρύ ρούχο. Προτιμήστε ένα εξωτερικό ρούχο. Φορέστε ζεστές αδιάβροχες μπότες.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
-        }
-        else if(title.equals("Σεισμος")){
+                    .bigText(description + "\n" + "Μήνυμα για " + title + " στην περιοχή:" + cityName + "\n" + "Αν η πυρκαγιά πλησιάζει στο σπίτι σας Διατηρείστε την ψυχραιμία σας. Μεταφέρετε όλα τα εύφλεκτα υλικά από τον περίγυρο του κτιρίου σε κλειστούς και προφυλαγμένους χώρους. Κλείστε όλες τις διόδους (καμινάδες, παράθυρα, πόρτες κλπ.)Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
+        } else if (title.equals("Χιονοθύελα")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που βρίσκεστε σε εσωτερικό χώρο,εκκενώστε το κτίριο από το κλιμακοστάσιο.Καταφύγετε σε ανοιχτό και ασφαλή χώρο.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
-        }
-        else if(title.equals("Ανεμοστροβιλος")){
+                    .bigText(description + "\n" + "Μήνυμα για " + title + " στην περιοχή:" + cityName + "\n" + "Πηγαίνετε σε ασφαλές μέρος χωρίς να εκτεθείτε στην χιονοθύελλα. Ντυθείτε με πολλά στρώματα με ελαφριά και ζεστά ρούχα αντί για ένα βαρύ ρούχο. Προτιμήστε ένα εξωτερικό ρούχο. Φορέστε ζεστές αδιάβροχες μπότες.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
+        } else if (title.equals("Σεισμος")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Προληπτικά μείνετε μακριά από παράθυρα, γωνίες, πόρτες  και εξωτερικούς τοίχους.Προσέξτε τα συντρίμμια που ίπτανται. Καθίστε στο πάτωμα δίπλα σ΄ έναν εσωτερικό τοίχο ή κάτω από ένα βαρύ έπιπλο, όπως ένα τραπέζι.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
-        }
-        else if(title.equals("Καπνος/Σταχτη")){
+                    .bigText(description + "\n" + "Μήνυμα για " + title + " στην περιοχή:" + cityName + "\n" + "Σε περίπτωση που βρίσκεστε σε εσωτερικό χώρο,εκκενώστε το κτίριο από το κλιμακοστάσιο.Καταφύγετε σε ανοιχτό και ασφαλή χώρο.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
+        } else if (title.equals("Ανεμοστροβιλος")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που δεν είναι εφικτή η απομάκρυνση από τη περιοχή, παραμείνετε όσο το δυνατόν περισσότερο σε κλειστούς χώρους και διατηρείστε τον εσωτερικό αέρα όσο το δυνατόν περισσότερο καθαρό.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
+                    .bigText(description + "\n" + "Μήνυμα για " + title + " στην περιοχή:" + cityName + "\n" + "Προληπτικά μείνετε μακριά από παράθυρα, γωνίες, πόρτες  και εξωτερικούς τοίχους.Προσέξτε τα συντρίμμια που ίπτανται. Καθίστε στο πάτωμα δίπλα σ΄ έναν εσωτερικό τοίχο ή κάτω από ένα βαρύ έπιπλο, όπως ένα τραπέζι.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
+        } else if (title.equals("Καπνος/Σταχτη")) {
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(description + "\n" + "Μήνυμα για " + title + " στην περιοχή:" + cityName + "\n" + "Σε περίπτωση που δεν είναι εφικτή η απομάκρυνση από τη περιοχή, παραμείνετε όσο το δυνατόν περισσότερο σε κλειστούς χώρους και διατηρείστε τον εσωτερικό αέρα όσο το δυνατόν περισσότερο καθαρό.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
         }
         notificationManager.notify(i, builder.build());
     }

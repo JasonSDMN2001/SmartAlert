@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         holder.date.setText(dangerData.getDate().toString());
         holder.key = dangerData.getKey();
         holder.number.setText(String.valueOf(dangerData.getNumber()));
+        Glide.with(context).load(list.get(position).getImageUrl()).into(holder.image);
     }
 
     @Override

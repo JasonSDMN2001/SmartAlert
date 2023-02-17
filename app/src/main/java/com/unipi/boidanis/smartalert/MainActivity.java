@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
         filter.addAction(LocationManager.KEY_PROVIDER_ENABLED);
+        filter.addAction(LocationManager.KEY_LOCATION_CHANGED);
         registerReceiver(new Restarter(),filter);
     }
 

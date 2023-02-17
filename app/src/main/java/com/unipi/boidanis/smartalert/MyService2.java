@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -47,7 +48,6 @@ public class MyService2 extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         database = FirebaseDatabase.getInstance();
         user = sharedPreferences.getString("User", "");
@@ -112,14 +112,13 @@ public class MyService2 extends Service {
                                     }else if (dangerData.getNumber()==dangerData2.getNumber()&&
                                             dangerData.getKey()!=dangerData2.getKey()){
                                         dataSnapshot1.getRef().removeValue();
-
                                         dangerData.setNumber(2);
                                         String key2 = dangerData.getKey();
                                         ref2.child(key2).setValue(dangerData);
                                     }else if (dangerData.getNumber()==dangerData2.getNumber()&&
                                             dangerData.getKey()==dangerData2.getKey()){
-                                        String key2 = dangerData.getKey();
-                                        ref2.child(key2).setValue(dangerData);
+                                        //String key2 = dangerData.getKey();
+                                        //ref2.child(key2).setValue(dangerData);
                                     }
                                 }
                             }

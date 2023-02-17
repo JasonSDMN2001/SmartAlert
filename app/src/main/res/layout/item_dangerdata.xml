@@ -75,15 +75,19 @@
             android:textColor="#000"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editTextTextMultiLine2"
+        <TextView
+            android:id="@+id/textView27"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="57dp"
             android:layout_marginStart="150dp"
+            android:text="Description"
             android:layout_marginTop="55dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:padding="10dp"
+            android:textColor="#000"
+            android:textSize="20sp"
+             />
 
         <TextView
             android:id="@+id/textView23"
@@ -135,11 +139,12 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
             android:layout_marginTop="265dp"
+            android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
 
         <Button

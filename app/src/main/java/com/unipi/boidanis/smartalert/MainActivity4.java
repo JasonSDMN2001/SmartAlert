@@ -45,22 +45,18 @@ public class MainActivity4 extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
-        try {
-            NotificationChannel channel = new NotificationChannel("1345", "notifications",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
-            NotificationCompat.Builder builder =
-                    new NotificationCompat.Builder(getApplicationContext(), "1345");
-            builder.setContentTitle("You will now")
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setContentText("receive updates")
-                    .setAutoCancel(true);
-            notificationManager.notify(3, builder.build());
-        } finally {
-            Toast.makeText(getApplicationContext(), "You wont receive notifications from now on", Toast.LENGTH_SHORT).show();
-        }
+        NotificationChannel channel = new NotificationChannel("1345", "notifications",
+                NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(channel);
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getApplicationContext(), "1345");
+        builder.setContentTitle("Ready to")
+                .setSmallIcon(R.drawable.ic_stat_name)
+                .setContentText("receive notifications")
+                .setAutoCancel(true);
+        notificationManager.notify(3, builder.build());
     }
 
     public void signout(View view){

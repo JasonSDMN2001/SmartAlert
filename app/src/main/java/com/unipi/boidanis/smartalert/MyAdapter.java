@@ -53,15 +53,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         return list.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView dangerType,date,gps,number;
-        EditText description;
+        TextView dangerType,date,gps,number,description;
         ImageView image;
         Button button1,button2,button3;
         String key;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             dangerType=itemView.findViewById(R.id.textView22);
-            description=itemView.findViewById(R.id.editTextTextMultiLine2);
+            description=itemView.findViewById(R.id.textView27);
             gps=itemView.findViewById(R.id.textView23);
             date=itemView.findViewById(R.id.textView24);
             image=itemView.findViewById(R.id.imageView3);

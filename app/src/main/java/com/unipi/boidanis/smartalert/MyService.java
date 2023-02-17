@@ -179,55 +179,34 @@ public class MyService extends Service{
         notificationManager.createNotificationChannel(channel);
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(getApplicationContext(), "1245");
+        builder.setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_stat_name)
+                .setAutoCancel(true);
         if (title.equals("Πλημμυρα")){
-            builder.setContentTitle(title)
-                    .setSmallIcon(R.drawable.ic_stat_name)
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν βρεθείτε μπροστά σε δρόμο που έχει πλημμυρίσει σταματήστε και αλλάξτε κατεύθυνση. Αποφύγετε τα λιμνάζοντα νερά.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
-                    .setAutoCancel(true);
-            notificationManager.notify(i, builder.build());
+                builder.setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν βρεθείτε μπροστά σε δρόμο που έχει πλημμυρίσει σταματήστε και αλλάξτε κατεύθυνση. Αποφύγετε τα λιμνάζοντα νερά.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
         }
         else if(title.equals("Πυρκαγια")){
-            builder.setContentTitle(title)
-                    .setSmallIcon(R.drawable.ic_stat_name)
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν η πυρκαγιά πλησιάζει στο σπίτι σας Διατηρείστε την ψυχραιμία σας. Μεταφέρετε όλα τα εύφλεκτα υλικά από τον περίγυρο του κτιρίου σε κλειστούς και προφυλαγμένους χώρους. Κλείστε όλες τις διόδους (καμινάδες, παράθυρα, πόρτες κλπ.)Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
-                    .setAutoCancel(true);
-            notificationManager.notify(i, builder.build());
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Αν η πυρκαγιά πλησιάζει στο σπίτι σας Διατηρείστε την ψυχραιμία σας. Μεταφέρετε όλα τα εύφλεκτα υλικά από τον περίγυρο του κτιρίου σε κλειστούς και προφυλαγμένους χώρους. Κλείστε όλες τις διόδους (καμινάδες, παράθυρα, πόρτες κλπ.)Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
         }
         else if(title.equals("Χιονοθύελα")){
-            builder.setContentTitle(title)
-                    .setSmallIcon(R.drawable.ic_stat_name)
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Πηγαίνετε σε ασφαλές μέρος χωρίς να εκτεθείτε στην χιονοθύελλα. Ντυθείτε με πολλά στρώματα με ελαφριά και ζεστά ρούχα αντί για ένα βαρύ ρούχο. Προτιμήστε ένα εξωτερικό ρούχο. Φορέστε ζεστές αδιάβροχες μπότες.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
-                    .setAutoCancel(true);
-            notificationManager.notify(i, builder.build());
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Πηγαίνετε σε ασφαλές μέρος χωρίς να εκτεθείτε στην χιονοθύελλα. Ντυθείτε με πολλά στρώματα με ελαφριά και ζεστά ρούχα αντί για ένα βαρύ ρούχο. Προτιμήστε ένα εξωτερικό ρούχο. Φορέστε ζεστές αδιάβροχες μπότες.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
         }
         else if(title.equals("Σεισμος")){
-            builder.setContentTitle(title)
-                    .setSmallIcon(R.drawable.ic_stat_name)
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που βρίσκεστε σε εσωτερικό χώρο,εκκενώστε το κτίριο από το κλιμακοστάσιο.Καταφύγετε σε ανοιχτό και ασφαλή χώρο.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
-                    .setAutoCancel(true);
-            notificationManager.notify(i, builder.build());
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που βρίσκεστε σε εσωτερικό χώρο,εκκενώστε το κτίριο από το κλιμακοστάσιο.Καταφύγετε σε ανοιχτό και ασφαλή χώρο.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
         }
         else if(title.equals("Ανεμοστροβιλος")){
-            builder.setContentTitle(title)
-                    .setSmallIcon(R.drawable.ic_stat_name)
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Προληπτικά μείνετε μακριά από παράθυρα, γωνίες, πόρτες  και εξωτερικούς τοίχους.Προσέξτε τα συντρίμμια που ίπτανται. Καθίστε στο πάτωμα δίπλα σ΄ έναν εσωτερικό τοίχο ή κάτω από ένα βαρύ έπιπλο, όπως ένα τραπέζι.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
-                    .setAutoCancel(true);
-            notificationManager.notify(i, builder.build());
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Προληπτικά μείνετε μακριά από παράθυρα, γωνίες, πόρτες  και εξωτερικούς τοίχους.Προσέξτε τα συντρίμμια που ίπτανται. Καθίστε στο πάτωμα δίπλα σ΄ έναν εσωτερικό τοίχο ή κάτω από ένα βαρύ έπιπλο, όπως ένα τραπέζι.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
         }
         else if(title.equals("Καπνος/Σταχτη")){
-            builder.setContentTitle(title)
-                    .setSmallIcon(R.drawable.ic_stat_name)
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που δεν είναι εφικτή η απομάκρυνση από τη περιοχή, παραμείνετε όσο το δυνατόν περισσότερο σε κλειστούς χώρους και διατηρείστε τον εσωτερικό αέρα όσο το δυνατόν περισσότερο καθαρό.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"))
-                    .setAutoCancel(true);
-            notificationManager.notify(i, builder.build());
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(description +"\n" + "Μήνυμα για " + title + " στην περιοχή:" + long1 +","+ long2 + "\n" + "Σε περίπτωση που δεν είναι εφικτή η απομάκρυνση από τη περιοχή, παραμείνετε όσο το δυνατόν περισσότερο σε κλειστούς χώρους και διατηρείστε τον εσωτερικό αέρα όσο το δυνατόν περισσότερο καθαρό.Περιορίστε δραστικά τις μετακινήσεις και ακολουθήστε τις οδηγίες των αρχών.Οδηγίες αυτοπροστασίας:https://www.civilprotection.gr/el/entona-kairika-fainomena"));
         }
-
+        notificationManager.notify(i, builder.build());
     }
     @Override
     public void onDestroy() {

@@ -16,10 +16,8 @@ public class Restarter extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         if ((intent.getAction().equals(Intent.ACTION_SCREEN_ON) ||
                 intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION) ||
-                intent.getAction().matches(LocationManager.KEY_PROVIDER_ENABLED))&&context!=null) {
-            Toast.makeText(context, "broadcast!", Toast.LENGTH_SHORT).show();
+                intent.getAction().matches(LocationManager.KEY_PROVIDER_ENABLED) || intent.getAction().matches(LocationManager.KEY_LOCATION_CHANGED))&&context!=null) {
             context.startService(new Intent(context,MyService.class));
-
         }
     }
 

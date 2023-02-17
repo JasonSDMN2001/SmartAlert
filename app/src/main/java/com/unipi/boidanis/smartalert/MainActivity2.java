@@ -69,7 +69,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     Date currentTime;
     Location gps;
     ImageView imageView;
-    ProgressBar progressBar;
+    ProgressBar progressBar,progressBar2;
     private String key;
     Button uploadBtn;
     private Uri imageUri;
@@ -116,12 +116,14 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         }
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
         uploadBtn = findViewById(R.id.button2);
         imageView = findViewById(R.id.imageView);
         progressBar = findViewById(R.id.progressBar);
         //showAllBtn = findViewById(R.id.button8);
         progressBar.setVisibility(View.INVISIBLE);
-
+        progressBar2 = findViewById(R.id.progressBar2);
+        progressBar2.setVisibility(View.VISIBLE);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -335,6 +337,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         String cityName = addresses.get(0).getAddressLine(0);
         textView4.setText(cityName);
         locationManager.removeUpdates(this);
+        progressBar2.setVisibility(View.INVISIBLE);
     }
     private void buildAlertMessageNoGps() {
         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);

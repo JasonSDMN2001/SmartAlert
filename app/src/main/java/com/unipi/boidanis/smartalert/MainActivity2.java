@@ -1,6 +1,8 @@
 package com.unipi.boidanis.smartalert;
 
 import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,15 +24,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +44,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -49,13 +61,15 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     FirebaseUser user;
     String dangerType;
     LocationManager locationManager;
-    TextView textView4,textView2,textView66;
+    TextView textView4,textView2;
     Date currentTime;
     Location gps;
     ImageView imageView;
+    ProgressBar progressBar;
     private String key;
-    Button showAllBtn,uploadBtn;
+    Button uploadBtn;
     private Uri imageUri;
+    StorageReference storreference = FirebaseStorage.getInstance().getReference();
     //Uri filepath;
     //private final int PICK_IMAGE_REQUEST = 71;
     private final int GALLERY_REQ_CODE = 1000;
@@ -83,7 +97,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         textView3.setText(currentTime.toString());
         textView4 = findViewById(R.id.textView4);
         textView2 = findViewById(R.id.textView2);
-        textView66 = findViewById(R.id.textView14);
+       // textView66 = findViewById(R.id.textView14);
         String s = getIntent().getStringExtra("myMessage");
         textView2.setText("Welcome" +" "+ s +","+ "\n" + "You can now create your danger alert:");
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -99,8 +113,10 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         uploadBtn = findViewById(R.id.button2);
-        imageView = findViewById(R.id.imgGallery);
-        showAllBtn = findViewById(R.id.button8);
+        imageView = findViewById(R.id.imageView);
+        progressBar = findViewById(R.id.progressBar);
+        //showAllBtn = findViewById(R.id.button8);
+        progressBar.setVisibility(View.INVISIBLE);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,10 +124,34 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
                 Intent galleryIntent = new Intent();
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, 2);
+                someActivityResultLauncher.launch(galleryIntent);
+                //startActivityForResult(galleryIntent, 2);
+
             }
         });
 
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(imageUri != null){
+                    uploadToFirebase(imageUri);
+                }
+                else{
+                    //Toast.makeText(MainActivity2.this,"Please Select Image",Toast.LENGTH_SHORT).show();
+                    if(dangerType!=null&&data!=null&&gps!=null&&currentTime!=null)
+                    {
+                        DatabaseReference ref2 = database.getReference().child("Alerts");
+                        key = ref2.push().getKey();
+                        DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,null,false,1);
+
+                        ref2.child(key).setValue(dangerData);
+                        Toast.makeText(MainActivity2.this, "Your danger alert has been submitted!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        showMessage("Error", "missing stuff");
+                    }
+                }
+            }
+        });
         /*
         showAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,14 +175,81 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
             }
         });*/
     }
-    @Override
+  /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 2 && requestCode == RESULT_OK && data != null){
+        if(requestCode == 2 && resultCode == RESULT_OK && data != null){
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
         }
+    } */
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        imageUri = data.getData();
+                        imageView.setImageURI(imageUri);
+                    }
+                }
+            });
+
+    private void uploadToFirebase(Uri uri){
+
+        StorageReference fileRef = storreference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        if(dangerType!=null&&data!=null&&gps!=null&&currentTime!=null)
+                        {
+                            DatabaseReference ref2 = database.getReference().child("Alerts");
+                            key = ref2.push().getKey();
+                            DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,uri.toString(),false,1);
+
+                            ref2.child(key).setValue(dangerData);
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(MainActivity2.this, "Your danger alert has been submitted!", Toast.LENGTH_SHORT).show();
+                            imageView.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
+                        }else{
+                            showMessage("Error", "missing stuff");
+                        }
+
+                        /*DatabaseReference ref2 = database.getReference().child("Alerts");
+                        key = ref2.push().getKey();
+                        DangerData dangerData = new DangerData(key,dangerType, data.getText().toString(),gps.getLongitude(), gps.getLatitude(), currentTime,uri.toString(),false,1);
+
+                        ref2.child(key).setValue(dangerData);
+                        Toast.makeText(MainActivity2.this,"Uploaded Successfully",Toast.LENGTH_SHORT).show(); */
+                    }
+                });
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(MainActivity2.this,"Uploading Failed!",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private String getFileExtension(Uri mUri){
+
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(mUri));
     }
 
    /* @Override
@@ -183,7 +290,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-    public void write2(View view){
+  /*  public void write2(View view){
         if(dangerType!=null&&data!=null&&gps!=null&&currentTime!=null)
         {
             DatabaseReference ref2 = database.getReference().child("Alerts");
@@ -195,7 +302,7 @@ public class MainActivity2 extends AppCompatActivity implements AdapterView.OnIt
         }else{
             showMessage("Error", "missing stuff");
         }
-    }
+    } */
     void showMessage(String title, String message){
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }

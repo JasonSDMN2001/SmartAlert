@@ -101,27 +101,55 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.062" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="279dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="156dp"
-        android:clickable="true"
-        android:contextClickable="false"
-        android:cursorVisible="false"
-        android:defaultFocusHighlightEnabled="false"
-        android:linksClickable="false"
-        android:longClickable="false"
-        android:text="@string/don_t_have_an_account_yet_create_one"
-        android:textAllCaps="false"
-        android:textColor="#3F51B5"
-        android:textIsSelectable="false"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="279dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="156dp"
+                android:clickable="true"
+                android:contextClickable="false"
+                android:cursorVisible="false"
+                android:defaultFocusHighlightEnabled="false"
+                android:linksClickable="false"
+                android:longClickable="false"
+                android:text="@string/don_t_have_an_account_yet_create_one"
+                android:textAllCaps="false"
+                android:textColor="#3F51B5"
+                android:textIsSelectable="false"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.578" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="121dp"
+                android:layout_height="31dp"
+                android:clickable="true"
+                android:text="@string/show_statistics"
+                android:textColor="#FF9800"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.489"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.902" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="47dp"
+                android:layout_height="55dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.214"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.897"
+                tools:srcCompat="@mipmap/statistics_foreground" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

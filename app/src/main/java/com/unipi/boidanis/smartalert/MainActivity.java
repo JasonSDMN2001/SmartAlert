@@ -29,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     LocationManager locationManager;
     SharedPreferences sharedPreferences;
     CheckBox checkBox;
-    TextView textView,textView2;
+    TextView textView,textView2,textView3;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +64,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 startActivity(intent);
             }
         });
+        textView3 = findViewById(R.id.textView14);
+        textView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,MainActivity6.class);
+                startActivity(intent);
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         email= findViewById(R.id.editTextTextPersonName);
         password=findViewById(R.id.editTextTextPersonName2);
+        imageView =(ImageView) findViewById(R.id.imageView4);
+        imageView.setBackgroundResource(R.mipmap.statistics);
       /*  Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

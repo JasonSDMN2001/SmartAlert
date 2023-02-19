@@ -33,4 +33,13 @@
     <string name="sign_out">Sign out</string>
     <string name="sign_out2">Sign out</string>
     <string name="location">Location</string>
+    <string name="show_statistics">Show statistics</string>
+    <string name="statistics">Statistics</string>
+    <string name="reports_for_fires">Reports for Fires:</string>
+    <string name="reports_for_floods">Reports for Floods:</string>
+    <string name="reports_for_earthquakes">Reports for Earthquakes:</string>
+    <string name="reports_for_tornados">Reports for Tornados:</string>
+    <string name="reports_for_smokes">Reports for Smokes:</string>
+    <string name="reports_for_snow">Reports for Snow:</string>
+    <string name="total_cases">Total cases:</string>
 </resources>

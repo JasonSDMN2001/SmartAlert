@@ -33,4 +33,13 @@
     <string name="sign_out">Αποσύνδεση</string>
     <string name="sign_out2">Αποσύνδεση</string>
     <string name="location">Τοποθεσία</string>
+    <string name="show_statistics">Προβολή Στατιστικών</string>
+    <string name="statistics">Στατιστικά</string>
+    <string name="reports_for_fires">Αναφορές για Φωτιές:</string>
+    <string name="reports_for_floods">Αναφορές για Πλημμύρες:</string>
+    <string name="reports_for_earthquakes">Αναφορές για σεισμούς:</string>
+    <string name="reports_for_tornados">Αναφορές για ανεμοστρόβιλους:</string>
+    <string name="reports_for_smokes">Αναφορές για καπνούς:</string>
+    <string name="reports_for_snow">Αναφορές για χιονοθύελλα:</string>
+    <string name="total_cases">Συνολικά περισταστικά:</string>
 </resources>

@@ -167,7 +167,9 @@ public class MyService extends Service{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String cityName = addresses.get(0).getAddressLine(0);
+        //String cityName = addresses.get(0).getAddressLine(0);
+        String cityName = addresses.get(0).getLocality();
+
 
         NotificationChannel channel = new NotificationChannel("1245", "location2",
                 NotificationManager.IMPORTANCE_DEFAULT);

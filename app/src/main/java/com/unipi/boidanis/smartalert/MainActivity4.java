@@ -55,6 +55,7 @@ public class MainActivity4 extends AppCompatActivity  {
         builder.setContentTitle("Ready to")
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentText("receive notifications")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
         notificationManager.notify(3, builder.build());
     }

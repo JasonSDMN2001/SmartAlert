@@ -39,7 +39,16 @@
     <string name="reports_for_floods">Reports for Floods:</string>
     <string name="reports_for_earthquakes">Reports for Earthquakes:</string>
     <string name="reports_for_tornados">Reports for Tornados:</string>
-    <string name="reports_for_smokes">Reports for Smokes:</string>
+    <string name="reports_for_smokes">Reports for Ashes/Smokes:</string>
     <string name="reports_for_snow">Reports for Snow:</string>
     <string name="total_cases">Total cases:</string>
+    <string name="message_for">Message_for</string>
+    <string name="area">area:</string>
+    <string name="help_flood">If you find yourself in front of a flooded road, stop and change direction. Avoid standing water. Strictly limit movement and follow the instructions of the authorities. Self-protection instructions:https://www.civilprotection.gr/el/entona-kairika-fainomena</string>
+    <string name="help_fire">If the fire is approaching your home Keep calm. Move all flammable materials from around the building to closed and protected areas. Close all passageways (chimneys, windows, doors, etc.)Self-protection instructions:https://www.civilprotection.gr/el/entona-kairika-fainomena</string>
+    <string name="help_snow">Get to a safe place without being exposed to the blizzard. Dress in layers of light and warm clothing instead of a heavy garment. Prefer an outer garment. Wear warm waterproof boots. Strictly limit movement and follow the instructions of the authorities. Self-protection instructions:https://www.civilprotection.gr/el/entona-kairika-fainomena</string>
+    <string name="help_earth">If you are indoors, evacuate the building from the stairwell. Take refuge in an open and safe area. Self-protection instructions:https://www.civilprotection.gr/el/entona-kairika-fainomena</string>
+    <string name="help_tornado">As a precaution stay away from windows, corners, doors and exterior walls. Watch for flying debris. Sit on the floor next to an interior wall or under a heavy piece of furniture, such as a table. Limit movement drastically and follow the instructions of the authorities. Self-protection instructions:https://www.civilprotection.gr/el/entona-kairika-fainomena</string>
+    <string name="help_ash">In the event that removal from the area is not possible, stay indoors as much as possible and keep indoor air as clean as possible. Strictly limit movement and follow the instructions of the authorities. Self-protection instructions:https://www.civilprotection.gr/el/entona-kairika-fainomena</string>
+
 </resources>

@@ -58,6 +58,7 @@ public class MainActivity4 extends AppCompatActivity  {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
         notificationManager.notify(3, builder.build());
+
     }
 
     public void signout(View view){

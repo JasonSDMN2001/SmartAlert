@@ -31,4 +31,5 @@
     <string name="description2">Description</string>
     <string name="sign_out">Sign out</string>
     <string name="sign_out2">Sign out</string>
+    <string name="location">Location</string>
 </resources>

@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
+        android:layout_width="150dp"
+        android:layout_height="44dp"
         android:backgroundTint="#7DDC39"
         android:onClick="signout"
         android:text="@string/sign_out"

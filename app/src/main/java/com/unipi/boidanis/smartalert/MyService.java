@@ -63,14 +63,14 @@ public class MyService extends Service{
     Double gps_long2, gps_lat2;
     DangerData dangerData;
     float[] distance = new float[1];
-    String messagefor = getString(R.string.message_for);
-    String area = getResources().getString(R.string.area);
-    String helpflood = getResources().getString(R.string.help_flood);
-    String helpfire = getResources().getString(R.string.help_fire);
-    String helpsnow = getResources().getString(R.string.help_snow);
-    String helpearth = getResources().getString(R.string.help_earth);
-    String helptor = getResources().getString(R.string.help_tornado);
-    String helpash = getResources().getString(R.string.help_ash);
+    String messagefor ;
+    String area ;
+    String helpflood;
+    String helpfire ;
+    String helpsnow;
+    String helpearth ;
+    String helptor ;
+    String helpash;
 
     public MyService() {
     }
@@ -88,6 +88,14 @@ public class MyService extends Service{
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         database = FirebaseDatabase.getInstance();
         user = sharedPreferences.getString("User", "");
+        messagefor = getString(R.string.message_for);
+        area = getString(R.string.area);
+        helpflood = getString(R.string.help_flood);
+        helpfire= getString(R.string.help_fire);
+        helpsnow = getString(R.string.help_snow);
+        helpearth = getString(R.string.help_earth);
+        helptor = getString(R.string.help_tornado);
+        helpash = getResources().getString(R.string.help_ash);
         if (database == null) {
             onDestroy();
             return START_NOT_STICKY;
@@ -192,22 +200,22 @@ public class MyService extends Service{
                 .setAutoCancel(true);
         if (title.equals("Πλημμυρα")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description + "\n" + messagefor + title + area + cityName + "\n" + helpflood));
+                    .bigText( messagefor + title + area + cityName + "\n" + helpflood));
         } else if (title.equals("Πυρκαγια")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description + "\n" + messagefor + title + area + cityName + "\n" + helpfire));
+                    .bigText( messagefor + title + area + cityName + "\n" + helpfire));
         } else if (title.equals("Χιονοθύελα")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description + "\n" + messagefor + title + area + cityName + "\n" + helpsnow));
+                    .bigText( messagefor + title + area + cityName + "\n" + helpsnow));
         } else if (title.equals("Σεισμος")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description + "\n" + messagefor + title + area + cityName + "\n" + helpearth));
+                    .bigText( messagefor + title + area + cityName + "\n" + helpearth));
         } else if (title.equals("Ανεμοστροβιλος")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description + "\n" + messagefor + title + area + cityName + "\n" + helptor));
+                    .bigText( messagefor + title + area + cityName + "\n" + helptor));
         } else if (title.equals("Καπνος/Σταχτη")) {
             builder.setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description + "\n" + messagefor + title + area + cityName + "\n" + helpash));
+                    .bigText( messagefor + title + area + cityName + "\n" + helpash));
         }
         notificationManager.notify(i, builder.build());
     }

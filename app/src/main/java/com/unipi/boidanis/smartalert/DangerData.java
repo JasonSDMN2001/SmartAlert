@@ -1,3 +1,4 @@
+
 package com.unipi.boidanis.smartalert;
 
 import android.location.Location;

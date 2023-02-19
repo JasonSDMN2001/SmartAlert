@@ -119,7 +119,9 @@ public class MyService extends Service{
             }
         });
         if (!b) {
+
             onDestroy();
+
             return START_NOT_STICKY;
 
         }
@@ -137,6 +139,7 @@ public class MyService extends Service{
                 .addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
+
                         Double gps_long1 = location.getLongitude();
                         Double gps_lat1 = location.getLatitude();
 

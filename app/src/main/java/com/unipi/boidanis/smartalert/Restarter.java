@@ -18,6 +18,7 @@ public class Restarter extends BroadcastReceiver{
                 intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION) ||
                 intent.getAction().matches(LocationManager.KEY_PROVIDER_ENABLED) || intent.getAction().matches(LocationManager.KEY_LOCATION_CHANGED))&&context!=null) {
             context.startService(new Intent(context,MyService.class));
+
         }
     }
 

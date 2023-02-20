@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     FirebaseUser user;
     LocationManager locationManager;
     SharedPreferences sharedPreferences;
-    CheckBox checkBox;
+    //CheckBox checkBox;
     TextView textView,textView2,textView3;
     ImageView imageView;
     @Override
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             buildAlertMessageNoGps();
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        checkBox=findViewById(R.id.checkBox);
+        //checkBox=findViewById(R.id.checkBox);
         permissions2();
         //notifications
         IntentFilter filter = new IntentFilter();
@@ -154,11 +154,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if(snapshot.getValue().toString().equals("Employee")){
-                                    if(checkBox.isChecked()){
+                                    /*if(checkBox.isChecked()){
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("User", mAuth.getUid());
                                         editor.apply();
-                                    }
+                                    }*/
                                     showMessage("Success!","Ok");
                                     Intent intent = new Intent(getApplicationContext(), MainActivity3.class);
                                     startActivity(intent);
@@ -170,11 +170,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                                     startActivity(intent);
                                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                 }else if(snapshot.getValue().toString().equals("Alerted User")) {
-                                    if(checkBox.isChecked()){
+                                    /*if(checkBox.isChecked()){
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("User", mAuth.getUid());
                                         editor.apply();
-                                    }
+                                    }*/
 
                                     showMessage("Success!","Ok");
                                     Intent intent = new Intent(getApplicationContext(), MainActivity4.class);

@@ -50,7 +50,7 @@ public class MyService2 extends Service {
         super.onStartCommand(intent, flags, startId);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         database = FirebaseDatabase.getInstance();
-        user = sharedPreferences.getString("User", "");
+        //user = sharedPreferences.getString("User", "");
         /*if (database == null) {
             onDestroy();
             return START_NOT_STICKY;

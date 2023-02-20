@@ -87,7 +87,7 @@ public class MyService extends Service{
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         database = FirebaseDatabase.getInstance();
-        user = sharedPreferences.getString("User", "");
+        //user = sharedPreferences.getString("User", "");
         messagefor = getString(R.string.message_for);
         area = getString(R.string.area);
         helpflood = getString(R.string.help_flood);
@@ -100,7 +100,7 @@ public class MyService extends Service{
             onDestroy();
             return START_NOT_STICKY;
         }
-        if (Objects.equals(user, "")) {
+        /*if (Objects.equals(user, "")) {
             onDestroy();
             return START_NOT_STICKY;
         }
@@ -124,7 +124,7 @@ public class MyService extends Service{
 
             return START_NOT_STICKY;
 
-        }
+        }*/
 
         //location search
 
